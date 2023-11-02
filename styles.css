@@ -1,0 +1,82 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+#body {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#quote-box {
+  display: flex;
+  padding: 50px;
+  text-align: center;
+  width: 600px;
+  background-color: white;
+}
+#content {
+  position: relative;
+}
+h2 {
+  font-size: 30px;
+}
+
+h2::before {
+  content: '"';
+}
+
+h2::after {
+  content: '"';
+}
+
+h3 {
+  font-size: 18px;
+  margin-top: 30px;
+  text-align: right;
+  opacity: 0.7;
+}
+
+h3::before {
+  content: "- ";
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  height: 30px;
+}
+
+#new-quote:hover {
+  opacity: 0.6;
+}
+#tweet-quote:hover {
+  opacity: 0.6;
+}
+#tumblr-quote:hover {
+  opacity: 0.6;
+}
+
+#tumblr-quote {
+  margin-right: 330px;
+}
+
+#new-quote {
+  color: white;
+  padding: 5px;
+  border: none;
+}
+
+a {
+  width: 30px;
+}
+
+i {
+  color: white;
+  padding-top: 7px;
+}
