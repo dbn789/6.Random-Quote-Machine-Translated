@@ -33,7 +33,7 @@ function App() {
       headers: {
         "Access-Control-Allow-Origin": "*",
         "content-type": "application/json",
-        "X-Api-Key": "W3EfE+evEFYdgmTbX459ZQ==UB8Ym2SjwsY9Qia8",
+        "X-Api-Key": "",
       },
     };
 
@@ -57,7 +57,7 @@ function App() {
     const options = {
       method: "GET",
       headers: {
-        "X-RapidAPI-Key": "acac7c832amsh575b155badc1aa4p1dcefajsnc0981471e44f",
+        "X-RapidAPI-Key": "",
         "X-RapidAPI-Host":
           "translated-mymemory---translation-memory.p.rapidapi.com",
       },
