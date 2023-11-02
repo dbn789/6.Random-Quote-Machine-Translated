@@ -1,7 +1,11 @@
 function App() {
   const [quote, setQuote] = React.useState({
-    quote: "Random Quote Machine. This is my first React app!",
-    author: "Vitaly Tutaev",
+    quote: "Случайный генератор цитат. Моё первое приложение на React",
+    author: "Виталий Тутаев",
+  });
+  const [origQuote, setOrigQuote] = React.useState({
+    quote: "Random Quote Machine. This is my first React App!",
+    author: "Tutaev Vitaly",
   });
   const [color, setColor] = React.useState("gray");
 
@@ -14,6 +18,12 @@ function App() {
     const colors = [];
     for (let i = 0; i < 3; i++) colors.push(Math.floor(Math.random() * 255));
     return `RGB(${colors[0]},${colors[1]},${colors[2]})`;
+  }
+
+  function viewOrigQuote() {
+    setQuote((prev) => {
+      return { ...prev, quote: origQuote.quote, author: origQuote.author };
+    });
   }
 
   function nextQuote() {
@@ -30,34 +40,35 @@ function App() {
     getData(url, options).then((res) => {
       const newColor = changeColor();
       setColor(newColor);
-      translateData(res[0]).then((data) => {
-        if (data.status === 200) {
-          setQuote({
-            quote: data.translations[0].translated[0],
-            author: res[0].author,
-          });
-        } else setQuote(res[0]);
+      setOrigQuote({ quote: res[0].quote, author: res[0].author });
+      translateOtherAPI(res[0]).then((result) => {
+        const translatedText = result.replace(/\|.+/, "");
+        const translatedAuthor = result.replace(/.+\|/, "");
+
+        setQuote((prev) => {
+          return { ...prev, quote: translatedText, author: translatedAuthor };
+        });
       });
     });
   }
 
-  async function translateData(phrase) {
-    const url2 = "https://api.lecto.ai/v1/translate/text";
-    const params = new URLSearchParams();
-    params.append("to", "ru");
-    params.append("from", "en");
-    params.append("texts", phrase.quote);
-
-    const options2 = {
-      method: "POST",
+  async function translateOtherAPI(q) {
+    const url = `https://translated-mymemory---translation-memory.p.rapidapi.com/get?langpair=en%7Cru&q=${q.quote}|${q.author}&mt=1&onlyprivate=0&de=a%40b.c`;
+    const options = {
+      method: "GET",
       headers: {
-        "content-type": "application/x-www-form-urlencoded",
-        "X-API-key": "EH6WDH1-STRMT29-PEBA84K-7FDFSW5",
+        "X-RapidAPI-Key": "acac7c832amsh575b155badc1aa4p1dcefajsnc0981471e44f",
+        "X-RapidAPI-Host":
+          "translated-mymemory---translation-memory.p.rapidapi.com",
       },
-      body: params,
     };
-    const text = await getData(url2, options2);
-    return text;
+
+    try {
+      const result = await getData(url, options);
+      return result.responseData.translatedText;
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async function getData(url, options) {
@@ -101,9 +112,16 @@ function App() {
               id="new-quote"
               onClick={nextQuote}
             >
-              New quote
+              Новая цитата
             </button>
           </div>
+          <button
+            style={{ backgroundColor: color }}
+            id="orig-quote"
+            onClick={viewOrigQuote}
+          >
+            Оригинал цитаты
+          </button>
         </div>
       </div>
     </div>

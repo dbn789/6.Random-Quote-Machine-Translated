@@ -52,7 +52,8 @@ h3::before {
   height: 30px;
 }
 
-#new-quote:hover {
+#new-quote:hover,
+#orig-quote:hover {
   opacity: 0.6;
 }
 #tweet-quote:hover {
@@ -66,7 +67,12 @@ h3::before {
   margin-right: 330px;
 }
 
-#new-quote {
+#orig-quote {
+  margin-top: 30px;
+}
+
+#new-quote,
+#orig-quote {
   color: white;
   padding: 5px;
   border: none;
